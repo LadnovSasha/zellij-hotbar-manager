@@ -2,6 +2,8 @@
 
 A [Harpoon](https://github.com/ThePrimeagen/harpoon)-inspired session manager plugin for [Zellij](https://zellij.dev/). Quickly switch between your most-used sessions using hotbar slots.
 
+![zellij-hotbar](https://github.com/user-attachments/assets/e8872595-74ab-4acc-b826-673dc9b183f4)
+
 ## Features
 
 - **5 Hotbar Slots** - Assign sessions to slots 1-5 for instant switching with `Ctrl+1` through `Ctrl+5`
@@ -124,10 +126,6 @@ The UI displays all available sessions with:
 - `[N]` prefix showing which hotbar slot (if assigned)
 - `(current)` suffix for the active session
 - `▶` marker for the selected item
-
-## Screenshots
-
-_Coming soon_
 
 ## Integration with Neovim
 

@@ -129,6 +129,57 @@ The UI displays all available sessions with:
 
 _Coming soon_
 
+## Integration with Neovim
+
+When running Neovim inside Zellij, the `Ctrl+1` through `Ctrl+5` keybindings are captured by Neovim before reaching Zellij. To make session switching work seamlessly from within Neovim, add the following to your Neovim configuration.
+
+### Neovim Keymaps (Lua)
+
+Add this to your `~/.config/nvim/lua/config/keymaps.lua` or equivalent:
+
+```lua
+-- Zellij session switching keymaps (only when inside Zellij)
+if os.getenv('ZELLIJ') then
+  -- Create keymaps for Ctrl+1 through Ctrl+5 to switch sessions
+  for i = 1, 5 do
+    vim.keymap.set({ 'n', 'i', 't', 'v' }, string.format('<C-%d>', i), function()
+      vim.fn.system(string.format('zellij action pipe --name "switch_slot_%d"', i))
+    end, { silent = true, desc = string.format('Switch to Zellij session %d', i) })
+  end
+
+  -- Ctrl+0 to switch to previous session
+  vim.keymap.set({ 'n', 'i', 't', 'v' }, '<C-0>', function()
+    vim.fn.system('zellij action pipe --name "open_recent_hotbar"')
+  end, { silent = true, desc = 'Switch to previous Zellij session' })
+end
+```
+
+### How It Works
+
+1. The `ZELLIJ` environment variable is automatically set when running inside Zellij
+2. When the keymaps are triggered, Neovim uses `zellij action pipe` to send messages to the plugin
+3. The plugin receives the message via its `pipe()` method and executes the session switch
+4. This works in all Neovim modes: normal, insert, terminal, and visual
+
+### Auto-Lock Integration (Optional)
+
+For the best experience, consider using [zellij-autolock](https://github.com/fresh2dev/zellij-autolock) alongside this plugin. It automatically locks Zellij when Neovim has focus, preventing keybinding conflicts while still allowing the session switching keymaps to work:
+
+```kdl
+plugins {
+    autolock location="file:~/.config/zellij/plugins/zellij-autolock.wasm" {
+        is_enabled true
+        triggers "nvim|vim|git|fzf|zoxide|atuin"
+        reaction_seconds "0.3"
+    }
+}
+
+load_plugins {
+    autolock
+    hotbar-manager
+}
+```
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.

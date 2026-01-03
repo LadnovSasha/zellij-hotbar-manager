@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use std::path::PathBuf;
 
 fn get_hotbar_file_path() -> PathBuf {
-    PathBuf::from("/tmp/zellij-session-harpoon-hotbar.rkyv")
+    PathBuf::from("/tmp/zellij-hotbar-manager.rkyv")
 }
 
 #[derive(Archive, Deserialize, Serialize, Debug, Clone)]

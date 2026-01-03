@@ -16,10 +16,20 @@ A [Harpoon](https://github.com/ThePrimeagen/harpoon)-inspired session manager pl
 
 ### Requirements
 
-- Rust toolchain with `wasm32-wasip1` target
 - Zellij 0.43.0+
 
-### Build
+### Download Pre-built Binary
+
+Download the latest release from GitHub:
+
+```bash
+curl -L https://github.com/LadnovSasha/zellij-hotbar-manager/releases/download/v0.1.0/zellij-hotbar-manager.wasm \
+  -o ~/.config/zellij/plugins/zellij-hotbar-manager.wasm
+```
+
+### Build from Source
+
+Requires Rust toolchain with `wasm32-wasip1` target.
 
 ```bash
 git clone https://github.com/LadnovSasha/zellij-hotbar-manager.git
